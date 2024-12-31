@@ -27,11 +27,11 @@ export default [
     subRoutes: [
       {
         name: "Quotes",
-        to: "/",
+        to: "/procurement/quotes",
       },
       {
         name: "Orders",
-        to: "/",
+        to: "/procurement/order",
       },
     ],
   },
