@@ -1,17 +1,17 @@
 // Header with the icon to navigate to the previous back
 //import { SidebarTrigger } from "@/components/ui/sidebar";
-import { SearchIcon, ChevronDown, ChevronLeft } from "lucide-react";
-import NotificationImg from "@/assets/icons/Container.svg";
-import ChatImg from "@/assets/icons/texts.svg";
-import { Button } from "@/components/ui/button";
-import headerPic from "@/assets/images/header-img.png";
+import {SearchIcon, ChevronDown, ChevronLeft} from 'lucide-react';
+import NotificationImg from '@/assets/icons/Container.svg';
+import ChatImg from '@/assets/icons/texts.svg';
+import {Button} from '@/components/ui/button';
+import headerPic from '@/assets/images/header-img.png';
 
 const HeaderWithBackArrow = () => {
   return (
     <>
       <header className="mx-0 flex items-center justify-between px-4 py-2 bg-header w-full">
         <div className="flex-1 text-grey1 flex justify-start items-center">
-          <ChevronLeft className="h-6 w-6 text-grey1 transition-transform"/>
+          <ChevronLeft className="h-6 w-6 text-grey1 transition-transform" />
           <span className="font-satoshi font-regular text-xs">Back</span>
         </div>
         <div className="flex-1 flex justify-end gap-2">
@@ -29,7 +29,7 @@ const HeaderWithBackArrow = () => {
               <div className="flex items-center justify-center rounded-full w-6 h-6 text-sm">
                 <img
                   src={headerPic}
-                  alt={"pic"}
+                  alt={'pic'}
                   className="rounded-full object-cover h-full w-100"
                 />
               </div>
@@ -48,7 +48,7 @@ const HeaderWithBackArrow = () => {
         </div> */}
       </header>
     </>
-  )
-}
+  );
+};
 
 export default HeaderWithBackArrow;

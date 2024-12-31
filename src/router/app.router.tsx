@@ -1,20 +1,20 @@
-import { lazy } from "react";
-import MainLayout from "@/layouts/main.layout";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {lazy} from 'react';
+import MainLayout from '@/layouts/main.layout';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
 // Application pages
-import DashboardPage from "@/pages/dashboard";
-import SuspensePage from "@/core/suspense.page";
-const CommunicationPage = lazy(() => import("@/pages/communication"));
-const FinancePage = lazy(() => import("@/pages/finance"));
-const InventoryPage = lazy(() => import("@/pages/inventory"));
-const CalendarPage = lazy(() => import("@/pages/calender"));
-const ContractPage = lazy(() => import("@/pages/contract"));
-const ProcurementsPage = lazy(() => import("@/pages/procurements/index"));
+import DashboardPage from '@/pages/dashboard';
+import SuspensePage from '@/core/suspense.page';
+const CommunicationPage = lazy(() => import('@/pages/communication'));
+const FinancePage = lazy(() => import('@/pages/finance'));
+const InventoryPage = lazy(() => import('@/pages/inventory'));
+const CalendarPage = lazy(() => import('@/pages/calender'));
+const ContractPage = lazy(() => import('@/pages/contract'));
+const ProcurementsPage = lazy(() => import('@/pages/procurements/index'));
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <MainLayout />,
     children: [
       {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         element: <DashboardPage />,
       },
       {
-        path: "/chat",
+        path: '/chat',
         element: (
           <SuspensePage>
             <CommunicationPage />
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/finance",
+        path: '/finance',
         element: (
           <SuspensePage>
             <FinancePage />
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/inventory",
+        path: '/inventory',
         element: (
           <SuspensePage>
             <InventoryPage />
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/contracts",
+        path: '/contracts',
         element: (
           <SuspensePage>
             <ContractPage />
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/calender",
+        path: '/calender',
         element: (
           <SuspensePage>
             <CalendarPage />
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/procurement/*",
+        path: '/procurement/*',
         element: (
           <SuspensePage>
             <ProcurementsPage />

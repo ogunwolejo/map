@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import {ReactNode} from 'react';
 
 export type SidebarRoutes = {
   name: string;
@@ -7,7 +7,7 @@ export type SidebarRoutes = {
   badge?: number;
 };
 
-type TSubRoutes = Omit<SidebarRoutes, "icon">;
+type TSubRoutes = Omit<SidebarRoutes, 'icon'>;
 
 export type NavigationTypes = SidebarRoutes & {
   subRoutes: Array<TSubRoutes>;

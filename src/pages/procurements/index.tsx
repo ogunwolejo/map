@@ -1,24 +1,27 @@
-import SuspensePage from "@/core/suspense.page";
-import ProcumentLayout, {QuotesLayoutPage} from "@/layouts/procument.layout";
-import { lazy } from "react";
-import { Routes, Route } from "react-router-dom";
+import SuspensePage from '@/core/suspense.page';
+import ProcumentLayout, {QuotesLayoutPage} from '@/layouts/procument.layout';
+import {lazy} from 'react';
+import {Routes, Route} from 'react-router-dom';
 
-const OrderPage = lazy(() => import("./order/order"));
+const OrderPage = lazy(() => import('./order/order'));
+const QuoteDetailPage = lazy(() => import('./quotes/sub-pages/detail'));
 
 const ProcurementPage = () => {
   return (
     <Routes>
-      <Route element={<QuotesLayoutPage/>}>
-        <Route 
-          path='quotes'
+      <Route element={<QuotesLayoutPage />}>
+        <Route
+          path="quotes"
           element={
-            <div className='text-center'>Quotes ...</div>
+            <SuspensePage>
+              <QuoteDetailPage />
+            </SuspensePage>
           }
         />
       </Route>
       <Route element={<ProcumentLayout />}>
         <Route
-          path='order'
+          path="order"
           element={
             <SuspensePage>
               <OrderPage />

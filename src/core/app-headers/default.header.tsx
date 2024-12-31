@@ -1,9 +1,9 @@
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { SearchIcon, ChevronDown } from "lucide-react";
-import NotificationImg from "@/assets/icons/Container.svg";
-import ChatImg from "@/assets/icons/texts.svg";
-import { Button } from "@/components/ui/button";
-import headerPic from "@/assets/images/header-img.png";
+import {SidebarTrigger} from '@/components/ui/sidebar';
+import {SearchIcon, ChevronDown} from 'lucide-react';
+import NotificationImg from '@/assets/icons/Container.svg';
+import ChatImg from '@/assets/icons/texts.svg';
+import {Button} from '@/components/ui/button';
+import headerPic from '@/assets/images/header-img.png';
 
 const DefaultHeader = () => {
   return (
@@ -27,7 +27,7 @@ const DefaultHeader = () => {
               <div className="flex items-center justify-center rounded-full w-6 h-6 text-sm">
                 <img
                   src={headerPic}
-                  alt={"pic"}
+                  alt={'pic'}
                   className="rounded-full object-cover h-full w-100"
                 />
               </div>

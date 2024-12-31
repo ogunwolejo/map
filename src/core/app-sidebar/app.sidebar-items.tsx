@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import {FC, memo} from 'react';
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -8,18 +8,18 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible.tsx";
-import { NavigationTypes } from "@/types/app-navigation.types.ts";
-import { ChevronDown } from "lucide-react";
-import { NavLink } from "react-router-dom";
+} from '@/components/ui/collapsible.tsx';
+import {NavigationTypes} from '@/types/app-navigation.types.ts';
+import {ChevronDown} from 'lucide-react';
+import {NavLink} from 'react-router-dom';
 
 export const NonCollapsibleSideBarItems: FC<NavigationTypes> = memo(
-  ({ name, to, icon }) => {
+  ({name, to, icon}) => {
     return (
       <SidebarGroup>
         <SidebarGroupContent>
@@ -31,8 +31,8 @@ export const NonCollapsibleSideBarItems: FC<NavigationTypes> = memo(
               >
                 <NavLink
                   to={to}
-                  className={({ isActive }) =>
-                    isActive ? "text-primary" : "text-grey"
+                  className={({isActive}) =>
+                    isActive ? 'text-primary' : 'text-grey'
                   }
                 >
                   {icon}
@@ -51,7 +51,7 @@ type Props = {
   isCollapse: boolean;
 } & NavigationTypes;
 export const CollapsibleSideBarItems: FC<Props> = memo(
-  ({ name, subRoutes, isCollapse, icon }) => {
+  ({name, subRoutes, isCollapse, icon}) => {
     return (
       <SidebarGroup>
         <SidebarGroupContent>
@@ -84,8 +84,8 @@ export const CollapsibleSideBarItems: FC<Props> = memo(
                             >
                               <NavLink
                                 to={sbr.to}
-                                className={({ isActive }) =>
-                                  isActive ? "text-primary" : "text-grey"
+                                className={({isActive}) =>
+                                  isActive ? 'text-primary' : 'text-grey'
                                 }
                               >
                                 <span className="font-semibold">

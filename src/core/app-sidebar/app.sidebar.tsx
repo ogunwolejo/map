@@ -1,4 +1,4 @@
-import { JSX, useMemo } from "react";
+import {JSX, useMemo} from 'react';
 import {
   Sidebar,
   SidebarContent,
@@ -7,28 +7,28 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar";
-import { NavigationTypes } from "@/types/app-navigation.types.ts";
+} from '@/components/ui/sidebar';
+import {NavigationTypes} from '@/types/app-navigation.types.ts';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu.tsx";
-import Profile from "@/core/profile.tsx";
+} from '@/components/ui/dropdown-menu.tsx';
+import Profile from '@/core/profile.tsx';
 import {
   CollapsibleSideBarItems,
   NonCollapsibleSideBarItems,
-} from "@/core/app-sidebar/app.sidebar-items";
-import MapLogo from "/logo.svg";
+} from '@/core/app-sidebar/app.sidebar-items';
+import MapLogo from '/logo.svg';
 
 const AppSidebar = ({
   navigation,
 }: {
   navigation: NavigationTypes[];
 }): JSX.Element => {
-  const { state } = useSidebar();
-  const isCollapse = useMemo(() => state === "collapsed", [state]);
+  const {state} = useSidebar();
+  const isCollapse = useMemo(() => state === 'collapsed', [state]);
   return (
     <Sidebar variant="sidebar" collapsible="icon" className="bg-background">
       {/** The start of the sidebar header **/}
@@ -77,12 +77,12 @@ const AppSidebar = ({
               <Profile name="Mark Benson" size="md" />
               <div className="flex flex-col justify-start items-start">
                 <h6
-                  className={`${isCollapse && "hidden"} font-semibold text-sm lg:text-md capitalize`}
+                  className={`${isCollapse && 'hidden'} font-semibold text-sm lg:text-md capitalize`}
                 >
                   Mark Benson
                 </h6>
                 <p
-                  className={`${isCollapse && "hidden"} font-regular text-sm lg:text-md`}
+                  className={`${isCollapse && 'hidden'} font-regular text-sm lg:text-md`}
                 >
                   markbenson@coremed.com
                 </p>

@@ -1,6 +1,6 @@
-import { Suspense, PropsWithChildren } from "react";
+import {Suspense, PropsWithChildren} from 'react';
 
-const SuspensePage = ({ children }: PropsWithChildren) => {
+const SuspensePage = ({children}: PropsWithChildren) => {
   return <Suspense>{children}</Suspense>;
 };
 
