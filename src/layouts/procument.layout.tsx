@@ -7,7 +7,7 @@ const ProcumentLayout: FC = () => {
   return (
     <Fragment>
       <DefaultHeader />
-      <div className="flex-grow">
+      <div className="flex-grow !bg-white">
         <Outlet />
       </div>
     </Fragment>
@@ -20,7 +20,7 @@ export const QuotesLayoutPage: FC = () => {
   return (
     <Fragment>
       <HeaderWithBackArrow />
-      <div className="flex-grow">
+      <div className="flex-grow !bg-white">
         <Outlet />
       </div>
     </Fragment>

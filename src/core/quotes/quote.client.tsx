@@ -1,11 +1,5 @@
 import {memo} from 'react';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import {Card, CardContent, CardHeader} from '@/components/ui/card';
 import ClientSvg from '@/assets/icons/client.svg';
 import Profile from '../profile';
 

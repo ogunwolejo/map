@@ -9,18 +9,13 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import {NavigationTypes} from '@/types/app-navigation.types.ts';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu.tsx';
 import Profile from '@/core/profile.tsx';
 import {
   CollapsibleSideBarItems,
   NonCollapsibleSideBarItems,
 } from '@/core/app-sidebar/app.sidebar-items';
 import MapLogo from '/logo.svg';
+import {useLocation} from 'react-router-dom';
 
 const AppSidebar = ({
   navigation,
@@ -29,6 +24,7 @@ const AppSidebar = ({
 }): JSX.Element => {
   const {state} = useSidebar();
   const isCollapse = useMemo(() => state === 'collapsed', [state]);
+  const location = useLocation();
   return (
     <Sidebar variant="sidebar" collapsible="icon" className="bg-background">
       {/** The start of the sidebar header **/}
@@ -41,6 +37,14 @@ const AppSidebar = ({
       <SidebarContent className="mt-3 lg:mt-5">
         {navigation.map((sn, idx) => {
           const hasSubRoutes = Boolean(sn.subRoutes.length);
+          const isActive: boolean = Boolean(
+            location.pathname === sn.to ||
+              location.pathname.startsWith(`${sn.to}/`),
+          );
+          const isActiveSub: boolean = !sn.subRoutes.length
+            ? false
+            : Boolean(sn.subRoutes.filter((f) => f.to === sn.to));
+
           if (hasSubRoutes) {
             return (
               <div key={idx}>
@@ -50,6 +54,8 @@ const AppSidebar = ({
                   icon={sn.icon}
                   name={sn.name}
                   subRoutes={sn.subRoutes}
+                  isActive={isActive}
+                  isActiveSub={isActiveSub}
                 />
               </div>
             );
@@ -61,6 +67,7 @@ const AppSidebar = ({
                   icon={sn.icon}
                   name={sn.name}
                   subRoutes={sn.subRoutes}
+                  isActive={isActive}
                 />
               </div>
             );
@@ -74,7 +81,7 @@ const AppSidebar = ({
         <SidebarMenu>
           <SidebarMenuItem>
             <div className="flex justify-start gap-3 items-center">
-              <Profile name="Mark Benson" size="md" />
+              <Profile name="Mark Benson" size="lg" />
               <div className="flex flex-col justify-start items-start">
                 <h6
                   className={`${isCollapse && 'hidden'} font-semibold text-sm lg:text-md capitalize`}

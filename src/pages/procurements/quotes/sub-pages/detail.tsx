@@ -3,11 +3,12 @@ import {FC, Fragment} from 'react';
 import {X} from 'lucide-react';
 import QuoteInformation from '@/core/quotes/quote.information';
 import {QuoteViewTable} from '@/core/quotes/quoute.view-table';
+import {QuoteTermsContract} from '@/core/quotes/quote.terms';
 
 const QuoteDetail: FC = () => {
   return (
     <Fragment>
-      <div className="page_container space-y-4">
+      <div className="page_container space-y-4 lg:space-y-6">
         <section className="flex justify-between items-center">
           <div className="font-satoshi">
             <h4 className="font-semibold text-xl lg:text-2xl">Quote details</h4>
@@ -35,6 +36,7 @@ const QuoteDetail: FC = () => {
         </section>
         <QuoteInformation />
         <QuoteViewTable />
+        <QuoteTermsContract />
       </div>
     </Fragment>
   );

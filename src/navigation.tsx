@@ -17,7 +17,12 @@ export default [
   },
   {
     name: 'Inventory',
-    icon: <img src={inventoryIcon} className="" />,
+    icon: (
+      <img
+        src={inventoryIcon}
+        className="w-4 h-4 lg:w-6 lg:h-6 text-gray-500 hover:text-blue-500 active:text-green-600"
+      />
+    ),
     subRoutes: [],
   },
   {

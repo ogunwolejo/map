@@ -17,7 +17,7 @@ module.exports = {
         dark: '#1D2739',
         grey: '#344054',
         grey1: '#667185',
-        grey2: '#555E68', 
+        grey2: '#555E68',
         grey3: '#344054',
         grey4: '#98A2B3',
         grey5: '#D9D9D9',
@@ -25,9 +25,7 @@ module.exports = {
         grey7: '#101928',
         error: '#D42620',
         reddish: '#FFECE5',
-        header: {
-          DEFAULT: '#F0F2F5',
-        },
+        header: {},
         sidebar: {
           DEFAULT: '#F7F9FC',
           foreground: 'hsl(var(--sidebar-foreground))',
@@ -41,5 +39,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/forms')],
 };

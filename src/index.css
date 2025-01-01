@@ -222,4 +222,17 @@
   .page_container {
     @apply py-6 px-4 md:px-6 box-border;
   }
+
+  table.table-fixed {
+    table-layout: fixed;
+    width: 100%;
+  }
+  table.table-fixed th,
+  table.table-fixed td {
+    text-align: left; /* Optional for alignment */
+    overflow: hidden; /* To prevent content overflow */
+  }
+  .hidden-input {
+    display: none;
+  }
 }

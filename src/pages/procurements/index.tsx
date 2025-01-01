@@ -5,6 +5,9 @@ import {Routes, Route} from 'react-router-dom';
 
 const OrderPage = lazy(() => import('./order/order'));
 const QuoteDetailPage = lazy(() => import('./quotes/sub-pages/detail'));
+const QuoteResponsePage = lazy(
+  () => import('./quotes/sub-pages/quote.response'),
+);
 
 const ProcurementPage = () => {
   return (
@@ -15,6 +18,16 @@ const ProcurementPage = () => {
           element={
             <SuspensePage>
               <QuoteDetailPage />
+            </SuspensePage>
+          }
+        />
+      </Route>
+      <Route element={<ProcumentLayout />}>
+        <Route
+          path="quotes/response"
+          element={
+            <SuspensePage>
+              <QuoteResponsePage />
             </SuspensePage>
           }
         />

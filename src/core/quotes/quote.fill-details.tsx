@@ -1,5 +1,11 @@
 import React, {FC} from 'react';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -20,15 +26,22 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import {Checkbox} from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
 } from '@/components/ui/dropdown-menu';
 import {TQuoteItem} from '@/types/quotes.types';
-import {QuoteItem} from './quote.item';
+import {CalendarInput, DefaultSelect} from '../app.inputs';
+import {QuoteFillForm} from './quote.fill-form';
+import {Separator} from '@/components/ui/separator';
+import {Input} from '@/components/ui/input';
+import {DollarSignIcon} from 'lucide-react';
+import {Button} from '@/components/ui/button';
+import Trash from '@/assets/icons/trash.svg';
 import {ItemSummation} from './item.summation';
+import {Textarea} from '@/components/ui/textarea';
+import QuoteStageButton from './quotes.stage-buttons';
 
 const data: TQuoteItem[] = [
   {
@@ -56,26 +69,18 @@ export const columns: ColumnDef<TQuoteItem>[] = [
     id: 'id',
     header: ({table}) => (
       <div className="flex justify-start items-center gap-2">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
         <span>Items</span>
       </div>
     ),
     cell: ({row}) => (
-      <div className="flex justify-start items-center gap-1">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-        <QuoteItem />
-      </div>
+      <DefaultSelect
+        placeholder="Oxygen Concentrator"
+        value={row.getValue('name')}
+        item={[
+          {label: 'Oxygen Concentrator', value: 'Oxygen Concentrator'},
+          {label: 'Mechanical Ventilator', value: 'Mechanical Ventilator'},
+        ]}
+      />
     ),
     enableSorting: false,
     enableHiding: false,
@@ -84,9 +89,15 @@ export const columns: ColumnDef<TQuoteItem>[] = [
     accessorKey: 'variant',
     header: () => <h6 className="">Variants</h6>,
     cell: ({row}) => (
-      <div className="capitalize text-grey3 text-xs lg:text-sm font-normal">
-        {row.getValue('variant')}
-      </div>
+      <DefaultSelect
+        classes="text-grey7 font-normal border border-grey5"
+        placeholder="Blue"
+        value={row.getValue('variants')}
+        item={[
+          {label: 'Blue', value: 'Blue'},
+          {label: 'Gray', value: 'Grey'},
+        ]}
+      />
     ),
   },
   {
@@ -94,57 +105,61 @@ export const columns: ColumnDef<TQuoteItem>[] = [
     header: () => {
       return <h6 className="">Quantity</h6>;
     },
-    cell: ({row}) => (
-      <div className="text-grey3 text-xs lg:text-sm font-normal">
-        {row.getValue('quantity')}
-      </div>
-    ),
+    cell: ({row}) => <QuantityInput value={row.getValue('quantity')} />,
   },
   {
     accessorKey: 'price',
     header: () => {
       return <h6 className="">Price</h6>;
     },
-    cell: ({row}) => (
-      <div className="text-grey3 text-xs lg:text-sm font-normal">
-        {row.getValue('price')}
-      </div>
-    ),
+    cell: ({row}) => {
+      const price = parseFloat(row.getValue('price'));
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(price);
+      return <PriceInput value={formatted} />;
+    },
+  },
+  {
+    id: 'delivery_date',
+    header: () => <h6 className=" truncate ...">Expected Delivery Date</h6>,
+    enableHiding: false,
+    cell: ({row}) => {
+      return (
+        <CalendarInput
+          className="text-grey7 font-normal border border-grey5"
+          value={row.getValue('deliveryDate')}
+        />
+      );
+    },
   },
   {
     accessorKey: 'amount',
     header: () => <div className="">Amount</div>,
     cell: ({row}) => {
-      const amount = parseFloat(row.getValue('amount'));
+      const price = parseFloat(row.getValue('amount'));
       const formatted = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
-      }).format(amount);
-
-      return (
-        <div className="text-grey3 text-xs lg:text-sm font-normal">
-          {formatted}
-        </div>
-      );
+      }).format(price);
+      return <PriceInput value={formatted} />;
     },
   },
   {
-    id: 'delivery_date',
-    header: () => (
-      <h6 className="text-end truncate ...">Expected Delivery Date</h6>
+    accessorKey: 'action',
+    header: () => <></>,
+    cell: ({row}) => (
+      <div className="flex justify-end items-center">
+        <Button size="icon" variant="link">
+          <img src={Trash} className="" />
+        </Button>
+      </div>
     ),
-    enableHiding: false,
-    cell: ({row}) => {
-      return (
-        <div className="text-grey3 text-xs lg:text-sm font-normal text-end">
-          {row.getValue('deliveryDate')}
-        </div>
-      );
-    },
   },
 ];
 
-export const QuoteViewTable: FC = () => {
+export const QuoteFillDetails: FC = () => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -176,13 +191,29 @@ export const QuoteViewTable: FC = () => {
     <Card>
       <CardContent>
         <CardHeader className="!px-1">
-          <div className="flex justify-between items-center font-satoshi">
+          <div className="flex flex-col justify-start items-start font-satoshi">
             <CardTitle className="font-semibold text-base lg:text-xl text-dark">
-              Item(s)
+              Request for Quote
             </CardTitle>
+            <CardDescription className="!text-sm !text-grey4">
+              Fill out these details to send the RFQ
+            </CardDescription>
           </div>
         </CardHeader>
-        <div className="w-full">
+
+        <section className="w-full pt-4">
+          <QuoteFillForm />
+        </section>
+
+        <Separator className="my-6 lg:my-8" orientation="horizontal" />
+
+        <section className="w-full pt-2">
+          <div
+            className="font-semibold !text-dark text-base py-3"
+            role="button"
+          >
+            Add item
+          </div>
           <div className="flex items-center">
             <DropdownMenu>
               <DropdownMenuContent align="end">
@@ -206,7 +237,7 @@ export const QuoteViewTable: FC = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <div className="rounded-md border">
+          <div className="rounded-md">
             <Table className="!text-xs table-fixed">
               <TableHeader className="!text-xs !font-normal !text-grey">
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -255,24 +286,79 @@ export const QuoteViewTable: FC = () => {
                 )}
               </TableBody>
             </Table>
-          </div>
 
-          <div className="p-5 mt-4 lg:mt-8 flex flex-col justify-end items-end">
-            <div className="flex flex-col justify-start items-end  gap-4">
-              <div className="flex justify-start gap-3 items-end">
-                <ItemSummation amount={8000} label="sub total" />
-              </div>
-              <div className="flex justify-start gap-3 items-center">
-                <ItemSummation
-                  amount={8000}
-                  label="total"
-                  classes="text-sm lg:text-base font-semibold text-grey6"
-                />
+            <Separator className="my-6 lg:my-8" orientation="horizontal" />
+
+            <div className="p-5 mt-4 lg:mt-8 flex flex-col justify-end items-end">
+              <div className="flex flex-col justify-start items-end  gap-4">
+                <div className="flex justify-start gap-3 items-end">
+                  <ItemSummation amount={8000} label="sub total" />
+                </div>
               </div>
             </div>
+
+            <RequestTextArea />
           </div>
-        </div>
+        </section>
+
+        <Separator className="my-6" orientation="horizontal" />
+
+        <QuoteStageButton />
       </CardContent>
     </Card>
   );
 };
+
+const QuantityInput = React.memo((props: React.ComponentProps<'input'>) => {
+  return (
+    <div className="flex flex-col gap-2 justify-start items-start w-full">
+      <div className="!bg-[#D0D5DD] border !border-header relative w-full rounded-md !h-10">
+        <Input
+          className="font-normal placeholder:text-grey4 text-xs lg:text-sm text-dark pr-12"
+          type="text"
+          {...props}
+          ref={props.ref}
+        />
+        <div className="text-xs right-2 font-normal absolute top-1/2 transform -translate-y-1/2 cursor-pointer ">
+          <span className="bg-header text-grey1 border rounded-sm p-1 capitalize">
+            pack
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+const PriceInput = React.memo((props: React.ComponentProps<'input'>) => {
+  return (
+    <div className="flex flex-col gap-2 justify-start items-start w-full">
+      <div className="!bg-[#D0D5DD] border !border-header relative w-full rounded-md !h-10">
+        <Input
+          className="font-normal placeholder:text-grey4 text-xs lg:text-sm text-dark pl-12"
+          type="text"
+          {...props}
+          ref={props.ref}
+        />
+        <div className="text-xs left-2 font-normal absolute top-1/2 transform -translate-y-1/2 cursor-pointer ">
+          <span className="bg-header text-grey1 border rounded-sm p-1 capitalize">
+            <DollarSignIcon className="w-6 h-5" />
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+const RequestTextArea = React.memo(() => {
+  return (
+    <div className="mt-3 flex flex-col justify-start items-start gap-2 w-2/5">
+      <h6 className="font-semibold text-xs lg:text-sm text-grey6">Note</h6>
+      <Textarea
+        placeholder="Enter note here"
+        className="placeholder:text-grey4 text-grey4 text-xs lg:text-sm"
+        rows={5}
+      />
+      <p className="font-medium text-xs text-grey6 self-end">0/200</p>
+    </div>
+  );
+});
