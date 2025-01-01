@@ -1,11 +1,5 @@
 import {FC, Fragment, useState} from 'react';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {
   Collapsible,
   CollapsibleContent,
@@ -15,6 +9,8 @@ import {ChevronDown, ChevronUp, Trash2} from 'lucide-react';
 import ContractIcon from '@/assets/icons/sign-doc-2.svg';
 import {Button} from '@/components/ui/button';
 import {Separator} from '@/components/ui/separator';
+import {QuoteAgreement} from '@/types/quotes.types';
+import {QuoteContractContext, useQuoteAgreementContext} from '@/context/quote-contract.context';
 
 export const QuoteInnerTermsContractContent: FC<{
   label: string;
@@ -35,6 +31,7 @@ export const QuoteInnerTermsContractContent: FC<{
 };
 
 export const QuoteInnerTermsContract: FC = () => {
+  const ctx = useQuoteAgreementContext();
   return (
     <Card>
       <CardContent>
@@ -43,70 +40,72 @@ export const QuoteInnerTermsContract: FC = () => {
             <CardTitle className="font-semibold text-sm lg:text-base text-grey6">
               Payment & Delivery
             </CardTitle>
-            <div>
+            {/* <div>
               <Button size="icon" variant="link" className=""></Button>
               <Button size="icon" variant="link" className="">
                 <Trash2 className="h-4 w-4 text-grey6" />
               </Button>
-            </div>
+            </div> */}
           </div>
         </CardHeader>
         <section className="flex justify-between items-center w-4/5">
           <QuoteInnerTermsContractContent
-            content="Net 30"
+            content={`Net ${ctx.terms.toString()}`}
             label="Payment term"
           />
           <Separator orientation="vertical" className="h-10" />
           <QuoteInnerTermsContractContent
-            content="Immediate delivery"
+            content={ctx.schedule}
             label="Delivery schedule"
           />
           <Separator orientation="vertical" className="h-10" />
           <QuoteInnerTermsContractContent
-            content="Ground shipping"
+            content={ctx.shippingMethod}
             label="Shipping method"
           />
           <Separator orientation="vertical" className="h-10" />
-          <QuoteInnerTermsContractContent content="30 days" label="Lead time" />
+          <QuoteInnerTermsContractContent content={`${ctx.leadTime} days`} label="Lead time" />
         </section>
       </CardContent>
     </Card>
   );
 };
 
-export const QuoteTermsContract: FC = () => {
+export const QuoteTermsContract: FC<{data: QuoteAgreement}> = ({data}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <Card>
-      <CardContent className="py-4">
-        <Collapsible open={isOpen} onOpenChange={setIsOpen} className="">
-          <div className="flex items-center justify-between px-4 ">
-            <div className="flex justify-start items-start gap-3">
-              <img src={ContractIcon} className="h-6 w-6 lg:h-8 lg:w-8" />
-              <div className="">
-                <h4 className="font-semibold text-base lg:text-xl">
-                  Terms and Attachments
-                </h4>
-                <p className="font-normal text-xs lg:text-sm text-grey6">
-                  Review payment and delivery terms
-                </p>
+    <QuoteContractContext.Provider value={data}>
+      <Card>
+        <CardContent className="py-4">
+          <Collapsible open={isOpen} onOpenChange={setIsOpen} className="">
+            <div className="flex items-center justify-between px-4 ">
+              <div className="flex justify-start items-start gap-3">
+                <img src={ContractIcon} className="h-6 w-6 lg:h-8 lg:w-8" />
+                <div className="">
+                  <h4 className="font-semibold text-base lg:text-xl">
+                    Terms and Attachments
+                  </h4>
+                  <p className="font-normal text-xs lg:text-sm text-grey6">
+                    Review payment and delivery terms
+                  </p>
+                </div>
               </div>
+              <CollapsibleTrigger className="text-grey4">
+                {isOpen ? (
+                  <ChevronUp className="h-6 w-6 lg:h-8 lg:w-8" />
+                ) : (
+                  <ChevronDown className="h-6 w-6 lg:h-8 lg:w-8" />
+                )}
+                <span className="sr-only">Toggle</span>
+              </CollapsibleTrigger>
             </div>
-            <CollapsibleTrigger className="text-grey4">
-              {isOpen ? (
-                <ChevronUp className="h-6 w-6 lg:h-8 lg:w-8" />
-              ) : (
-                <ChevronDown className="h-6 w-6 lg:h-8 lg:w-8" />
-              )}
-              <span className="sr-only">Toggle</span>
-            </CollapsibleTrigger>
-          </div>
-          <CollapsibleContent className="space-y-2 p-4">
-            <QuoteInnerTermsContract />
-          </CollapsibleContent>
-        </Collapsible>
-      </CardContent>
-    </Card>
+            <CollapsibleContent className="space-y-2 p-4">
+              <QuoteInnerTermsContract />
+            </CollapsibleContent>
+          </Collapsible>
+        </CardContent>
+      </Card>
+    </QuoteContractContext.Provider>
   );
 };

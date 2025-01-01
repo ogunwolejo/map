@@ -4,10 +4,18 @@ import {X} from 'lucide-react';
 import QuoteInformation from '@/core/quotes/quote.information';
 import {QuoteViewTable} from '@/core/quotes/quoute.view-table';
 import {QuoteTermsContract} from '@/core/quotes/quote.terms';
+import {useNavigate} from 'react-router-dom';
+import {QuoteDataContext} from '@/context/quote-data.context';
+import {data} from '@/context/data';
 
 const QuoteDetail: FC = () => {
+  const navigate = useNavigate();
+  const responseHandle = () => {
+    navigate('response', {state: {content: data}});
+  };
+
   return (
-    <Fragment>
+    <QuoteDataContext.Provider value={data}>
       <div className="page_container space-y-4 lg:space-y-6">
         <section className="flex justify-between items-center">
           <div className="font-satoshi">
@@ -21,6 +29,7 @@ const QuoteDetail: FC = () => {
               variant="default"
               size="default"
               className="!bg-primary !rounded-lg !font-semibold"
+              onClick={responseHandle}
             >
               Respond
             </Button>
@@ -35,10 +44,10 @@ const QuoteDetail: FC = () => {
           </div>
         </section>
         <QuoteInformation />
-        <QuoteViewTable />
-        <QuoteTermsContract />
+        <QuoteViewTable data={data.items} />
+        <QuoteTermsContract data={data.contract} />
       </div>
-    </Fragment>
+    </QuoteDataContext.Provider>
   );
 };
 

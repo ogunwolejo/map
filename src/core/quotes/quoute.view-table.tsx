@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useMemo} from 'react';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {
   Table,
@@ -26,34 +26,14 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
 } from '@/components/ui/dropdown-menu';
-import {TQuoteItem} from '@/types/quotes.types';
 import {QuoteItem} from './quote.item';
 import {ItemSummation} from './item.summation';
+import {QuoteItems} from '@/types/quotes.types';
+import {DateTime} from 'luxon';
 
-const data: TQuoteItem[] = [
+const columns: ColumnDef<QuoteItems>[] = [
   {
-    id: 23401,
-    amount: 316,
-    name: 'John wick',
-    price: 120,
-    variant: 'Blue',
-    quantity: '120 bags',
-    deliveryDate: Date.now(),
-  },
-  {
-    id: 23403,
-    amount: 2220,
-    name: 'John wick',
-    price: 2220,
-    variant: 'Blue',
-    quantity: '120 bags',
-    deliveryDate: Date.now(),
-  },
-];
-
-export const columns: ColumnDef<TQuoteItem>[] = [
-  {
-    id: 'id',
+    id: 'name',
     header: ({table}) => (
       <div className="flex justify-start items-center gap-2">
         <Checkbox
@@ -74,7 +54,7 @@ export const columns: ColumnDef<TQuoteItem>[] = [
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
         />
-        <QuoteItem />
+        <QuoteItem name={row.original.name} no={row.original.id} />
       </div>
     ),
     enableSorting: false,
@@ -105,11 +85,18 @@ export const columns: ColumnDef<TQuoteItem>[] = [
     header: () => {
       return <h6 className="">Price</h6>;
     },
-    cell: ({row}) => (
-      <div className="text-grey3 text-xs lg:text-sm font-normal">
-        {row.getValue('price')}
-      </div>
-    ),
+    cell: ({row}) => {
+      const amount = parseFloat(row.getValue('price'));
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(amount);
+      return (
+        <div className="text-grey3 text-xs lg:text-sm font-normal">
+          {formatted}
+        </div>
+      );
+    },
   },
   {
     accessorKey: 'amount',
@@ -129,7 +116,7 @@ export const columns: ColumnDef<TQuoteItem>[] = [
     },
   },
   {
-    id: 'delivery_date',
+    id: 'deliverySchedule',
     header: () => (
       <h6 className="text-end truncate ...">Expected Delivery Date</h6>
     ),
@@ -137,14 +124,16 @@ export const columns: ColumnDef<TQuoteItem>[] = [
     cell: ({row}) => {
       return (
         <div className="text-grey3 text-xs lg:text-sm font-normal text-end">
-          {row.getValue('deliveryDate')}
+          {DateTime.fromJSDate(row.original.deliverySchedule).toFormat(
+            'yyyy-MM-dd',
+          )}
         </div>
       );
     },
   },
 ];
 
-export const QuoteViewTable: FC = () => {
+export const QuoteViewTable: FC<{data: QuoteItems[]}> = ({data}) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -171,6 +160,11 @@ export const QuoteViewTable: FC = () => {
       rowSelection,
     },
   });
+
+  const totalAmount = useMemo(
+    () => data.reduce((total, item) => total + item.amount, 0),
+    [data],
+  );
 
   return (
     <Card>
@@ -260,11 +254,11 @@ export const QuoteViewTable: FC = () => {
           <div className="p-5 mt-4 lg:mt-8 flex flex-col justify-end items-end">
             <div className="flex flex-col justify-start items-end  gap-4">
               <div className="flex justify-start gap-3 items-end">
-                <ItemSummation amount={8000} label="sub total" />
+                <ItemSummation amount={totalAmount} label="sub total" />
               </div>
               <div className="flex justify-start gap-3 items-center">
                 <ItemSummation
-                  amount={8000}
+                  amount={totalAmount + 750}
                   label="total"
                   classes="text-sm lg:text-base font-semibold text-grey6"
                 />

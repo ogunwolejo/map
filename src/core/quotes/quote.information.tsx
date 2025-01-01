@@ -10,8 +10,13 @@ import QuoteLabel from './quote.label';
 import Status from '../status';
 import Profile from '../profile';
 import {QuoteClient} from './quote.client';
+import {
+  QuoteDataContext,
+  useQuoteDataContext,
+} from '@/context/quote-data.context';
 
 const QuoteInformation: FC = () => {
+  const quoteCtx = useQuoteDataContext(QuoteDataContext);
   return (
     <Card>
       <CardContent>
@@ -31,7 +36,7 @@ const QuoteInformation: FC = () => {
               title="Title"
               child={
                 <p className="font-medium text-xs md:text-sm lg:text-base text-grey3">
-                  Request for Equipments
+                  {quoteCtx.info.title}
                 </p>
               }
             />
@@ -39,7 +44,7 @@ const QuoteInformation: FC = () => {
               title="RFQ No"
               child={
                 <p className="font-medium text-xs md:text-sm lg:text-base text-grey3">
-                  RQ #01234
+                  {quoteCtx.info.requestNo}
                 </p>
               }
             />
@@ -47,23 +52,30 @@ const QuoteInformation: FC = () => {
               title="Requestor"
               child={
                 <div className="flex justify-start items-center gap-1">
-                  <Profile size="md" name="Jane Doe" bgColor="bg-reddish" />
+                  <Profile
+                    size="md"
+                    name={quoteCtx.info.requestor.fullName}
+                    bgColor="bg-reddish"
+                  />
                   <span className="font-medium text-xs md:text-sm lg:text-base text-grey">
-                    Jane Doe
+                    {quoteCtx.info.requestor.fullName}
                   </span>
                   <span className="rounded-full bg-grey5 h-1 w-1 sm:h-2 sm:w-2"></span>
                   <span className="font-medium text-xs md:text-sm lg:text-base text-grey4">
-                    Head Nurse, Paediatrics
+                    {quoteCtx.info.requestor.role}
                   </span>
                 </div>
               }
             />
-            <QuoteLabel title="Status" child={<Status label="Awaiting" />} />
+            <QuoteLabel
+              title="Status"
+              child={<Status label={quoteCtx.info.status} />}
+            />
             <QuoteLabel
               title="Department"
               child={
                 <p className="font-medium text-xs md:text-sm lg:text-base text-grey3">
-                  Maternity
+                  {quoteCtx.info.department}
                 </p>
               }
             />
@@ -80,6 +92,7 @@ const QuoteInformation: FC = () => {
 export default QuoteInformation;
 
 export const QuoteInformationEdit: FC = () => {
+  const quoteCtx = useQuoteDataContext(QuoteDataContext);
   return (
     <Card>
       <CardContent>
@@ -99,7 +112,7 @@ export const QuoteInformationEdit: FC = () => {
               title="Title"
               child={
                 <p className="font-medium text-xs md:text-sm lg:text-base text-grey3">
-                  Request for Equipments
+                  {quoteCtx.info.title}
                 </p>
               }
             />
@@ -107,7 +120,7 @@ export const QuoteInformationEdit: FC = () => {
               title="RFQ No"
               child={
                 <p className="font-medium text-xs md:text-sm lg:text-base text-grey3">
-                  RQ #01234
+                  {quoteCtx.info.requestNo}
                 </p>
               }
             />
@@ -115,23 +128,30 @@ export const QuoteInformationEdit: FC = () => {
               title="Requestor"
               child={
                 <div className="flex justify-start items-center gap-1">
-                  <Profile size="md" name="Jane Doe" bgColor="bg-reddish" />
+                  <Profile
+                    size="md"
+                    name={quoteCtx.info.requestor.fullName}
+                    bgColor="bg-reddish"
+                  />
                   <span className="font-medium text-xs md:text-sm lg:text-base text-grey">
-                    Jane Doe
+                    {quoteCtx.info.requestor.fullName}
                   </span>
                   <span className="rounded-full bg-grey5 h-1 w-1 sm:h-2 sm:w-2"></span>
                   <span className="font-medium text-xs md:text-sm lg:text-base text-grey4">
-                    Head Nurse, Paediatrics
+                    {quoteCtx.info.requestor.role}
                   </span>
                 </div>
               }
             />
-            <QuoteLabel title="Status" child={<Status label="Awaiting" />} />
+            <QuoteLabel
+              title="Status"
+              child={<Status label={quoteCtx.info.status} />}
+            />
             <QuoteLabel
               title="Department"
               child={
                 <p className="font-medium text-xs md:text-sm lg:text-base text-grey3">
-                  Maternity
+                  {quoteCtx.info.department}
                 </p>
               }
             />

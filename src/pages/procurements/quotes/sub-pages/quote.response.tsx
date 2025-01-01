@@ -1,12 +1,13 @@
 import {AppBreadCrumb} from '@/core/app.breadcrumb';
 import {QuoteProcedureState} from '@/types/quotes.types';
-import {FC, useState, Fragment, useMemo} from 'react';
+import {FC, useState, useMemo} from 'react';
 import QuoteRequest from './quote.request';
 import QuoteAgreement from './quote.agreement';
 import QuoteReview from './quote.review';
+import { StageContext } from '@/context/stage.context';
 
 const QuoteResponse: FC = () => {
-  const [processing, setProcessing] = useState<QuoteProcedureState>('review');
+  const [processing, setProcessing] = useState<QuoteProcedureState>('request');
   const nextProcessHandle = (process: QuoteProcedureState) => {
     setProcessing(process);
   };
@@ -17,7 +18,9 @@ const QuoteResponse: FC = () => {
   );
 
   return (
-    <Fragment>
+    <StageContext.Provider value={{
+      nextHandler: nextProcessHandle,
+    }}>
       <div className="page_container space-y-4 lg:space-y-8">
         <AppBreadCrumb
           base={{
@@ -41,7 +44,7 @@ const QuoteResponse: FC = () => {
           )}
         </section>
       </div>
-    </Fragment>
+    </StageContext.Provider>
   );
 };
 
