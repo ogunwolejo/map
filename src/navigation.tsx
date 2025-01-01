@@ -7,8 +7,9 @@ import signDocIcon from '@/assets/icons/sign-doc.svg';
 import calendarIcon from '@/assets/icons/calendar-alt.svg';
 import cartIcon from '@/assets/icons/cart.svg';
 import settingIcon from '@/assets/icons/settings.svg';
+import { NavigationTypes } from './types/app-navigation.types';
 
-export default [
+export const routes: NavigationTypes[] = [
   {
     name: 'Dashboard',
     to: '/',
@@ -23,6 +24,7 @@ export default [
         className="w-4 h-4 lg:w-6 lg:h-6 text-gray-500 hover:text-blue-500 active:text-green-600"
       />
     ),
+    to: '',
     subRoutes: [],
   },
   {

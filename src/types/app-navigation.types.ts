@@ -10,5 +10,5 @@ export type SidebarRoutes = {
 type TSubRoutes = Omit<SidebarRoutes, 'icon'>;
 
 export type NavigationTypes = SidebarRoutes & {
-  subRoutes: Array<TSubRoutes>;
+  subRoutes: TSubRoutes[];
 };

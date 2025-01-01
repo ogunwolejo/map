@@ -42,6 +42,7 @@ import Trash from '@/assets/icons/trash.svg';
 import {ItemSummation} from './item.summation';
 import {Textarea} from '@/components/ui/textarea';
 import QuoteStageButton from './quotes.stage-buttons';
+import { DateTime } from 'luxon';
 
 
 const columns: ColumnDef<QuoteItems>[] = [
@@ -72,7 +73,7 @@ const columns: ColumnDef<QuoteItems>[] = [
       <DefaultSelect
         classes="text-grey7 font-normal border border-grey5"
         placeholder="Blue"
-        value={row.getValue('variants')}
+        value={row.getValue('variant') ?? 'NIL'}
         item={[
           {label: 'Blue', value: 'Blue'},
           {label: 'Gray', value: 'Grey'},
@@ -102,14 +103,14 @@ const columns: ColumnDef<QuoteItems>[] = [
     },
   },
   {
-    id: 'delivery_date',
+    id: 'deliverySchedule',
     header: () => <h6 className=" truncate ...">Expected Delivery Date</h6>,
     enableHiding: false,
     cell: ({row}) => {
       return (
         <CalendarInput
           className="text-grey7 font-normal border border-grey5"
-          value={row.getValue('deliveryDate')}
+          value={DateTime.fromJSDate(row.original.deliverySchedule).toFormat('yyyy-MM-dd')}
         />
       );
     },
