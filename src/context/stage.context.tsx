@@ -3,7 +3,9 @@ import {createContext, useContext} from 'react';
 
 type MoveNext = {
   nextHandler: (val: QuoteProcedureState) => void;
-}
+  cancelHandle: () => void;
+  saveDraftHandle: () => void;
+};
 
 export const StageContext = createContext<MoveNext | undefined>(undefined);
 

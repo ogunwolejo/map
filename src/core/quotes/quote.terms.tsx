@@ -5,12 +5,14 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
-import {ChevronDown, ChevronUp, Trash2} from 'lucide-react';
+import {ChevronDown, ChevronUp} from 'lucide-react';
 import ContractIcon from '@/assets/icons/sign-doc-2.svg';
-import {Button} from '@/components/ui/button';
 import {Separator} from '@/components/ui/separator';
 import {QuoteAgreement} from '@/types/quotes.types';
-import {QuoteContractContext, useQuoteAgreementContext} from '@/context/quote-contract.context';
+import {
+  QuoteContractContext,
+  useQuoteAgreementContext,
+} from '@/context/quote-contract.context';
 
 export const QuoteInnerTermsContractContent: FC<{
   label: string;
@@ -64,7 +66,10 @@ export const QuoteInnerTermsContract: FC = () => {
             label="Shipping method"
           />
           <Separator orientation="vertical" className="h-10" />
-          <QuoteInnerTermsContractContent content={`${ctx.leadTime} days`} label="Lead time" />
+          <QuoteInnerTermsContractContent
+            content={`${ctx.leadTime} days`}
+            label="Lead time"
+          />
         </section>
       </CardContent>
     </Card>

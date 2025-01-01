@@ -11,12 +11,11 @@ import Status from '../status';
 import Profile from '../profile';
 import {QuoteClient} from './quote.client';
 import {
-  QuoteDataContext,
   useQuoteDataContext,
 } from '@/context/quote-data.context';
 
 const QuoteInformation: FC = () => {
-  const quoteCtx = useQuoteDataContext(QuoteDataContext);
+  const quoteCtx = useQuoteDataContext();
   return (
     <Card>
       <CardContent>
@@ -92,7 +91,7 @@ const QuoteInformation: FC = () => {
 export default QuoteInformation;
 
 export const QuoteInformationEdit: FC = () => {
-  const quoteCtx = useQuoteDataContext(QuoteDataContext);
+  const quoteCtx = useQuoteDataContext();
   return (
     <Card>
       <CardContent>
