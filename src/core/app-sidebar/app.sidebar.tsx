@@ -37,13 +37,10 @@ const AppSidebar = ({
       <SidebarContent className="mt-3 lg:mt-5">
         {navigation.map((sn, idx) => {
           const hasSubRoutes = Boolean(sn.subRoutes.length);
-          const isActive: boolean = Boolean(
-            location.pathname === sn.to ||
-              location.pathname.startsWith(`${sn.to}/`),
-          );
-          const isActiveSub: boolean = !sn.subRoutes.length
-            ? false
-            : Boolean(sn.subRoutes.filter((f) => f.to === sn.to));
+          const isActive: boolean = Boolean(location.pathname === sn.to);
+          // const isActiveSub: boolean = !sn.subRoutes.length
+          //   ? false
+          //   : Boolean(sn.subRoutes.filter((f) => f.to === sn.to));
 
           if (hasSubRoutes) {
             return (
@@ -55,7 +52,7 @@ const AppSidebar = ({
                   name={sn.name}
                   subRoutes={sn.subRoutes}
                   isActive={isActive}
-                  isActiveSub={isActiveSub}
+                  //isActiveSub={isActiveSub}
                 />
               </div>
             );

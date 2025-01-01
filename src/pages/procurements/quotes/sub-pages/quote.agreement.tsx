@@ -56,7 +56,7 @@ const QuoteAgreement: FC = () => {
           </section>
 
           <Separator className="my-6 lg:my-8" orientation="horizontal" />
-          <QuoteStageButton />
+          <QuoteStageButton nexStage="review" isSubmit={false} />
         </CardContent>
       </Card>
     </div>

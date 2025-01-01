@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -31,7 +31,7 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
 } from '@/components/ui/dropdown-menu';
-import {TQuoteItem} from '@/types/quotes.types';
+import {QuoteData, QuoteItems} from '@/types/quotes.types';
 import {CalendarInput, DefaultSelect} from '../app.inputs';
 import {QuoteFillForm} from './quote.fill-form';
 import {Separator} from '@/components/ui/separator';
@@ -43,28 +43,8 @@ import {ItemSummation} from './item.summation';
 import {Textarea} from '@/components/ui/textarea';
 import QuoteStageButton from './quotes.stage-buttons';
 
-const data: TQuoteItem[] = [
-  {
-    id: 23401,
-    amount: 316,
-    name: 'John wick',
-    price: 120,
-    variant: 'Blue',
-    quantity: '120 bags',
-    deliveryDate: Date.now(),
-  },
-  {
-    id: 23403,
-    amount: 2220,
-    name: 'John wick',
-    price: 2220,
-    variant: 'Blue',
-    quantity: '120 bags',
-    deliveryDate: Date.now(),
-  },
-];
 
-export const columns: ColumnDef<TQuoteItem>[] = [
+const columns: ColumnDef<QuoteItems>[] = [
   {
     id: 'id',
     header: () => (
@@ -159,7 +139,8 @@ export const columns: ColumnDef<TQuoteItem>[] = [
   },
 ];
 
-export const QuoteFillDetails: FC = () => {
+export const QuoteFillDetails: React.FC<{items:QuoteItems[], data: QuoteData}> = ({data, items}) => {
+  console.log('item', items)
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -169,7 +150,8 @@ export const QuoteFillDetails: FC = () => {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data,
+    items,
+    //@ts-ignore
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -303,7 +285,7 @@ export const QuoteFillDetails: FC = () => {
 
         <Separator className="my-6" orientation="horizontal" />
 
-        <QuoteStageButton />
+        <QuoteStageButton nexStage="contract" isSubmit={false} />
       </CardContent>
     </Card>
   );

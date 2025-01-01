@@ -11,7 +11,7 @@ import {data} from '@/context/data';
 const QuoteDetail: FC = () => {
   const navigate = useNavigate();
   const responseHandle = () => {
-    navigate('response', {state: {content: data}});
+    navigate('response', {state: data});
   };
 
   return (

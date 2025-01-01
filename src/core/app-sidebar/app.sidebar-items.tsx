@@ -45,10 +45,10 @@ export const NonCollapsibleSideBarItems: FC<
 type Props = {
   isCollapse: boolean;
   isActive: boolean;
-  isActiveSub: boolean;
+  //isActiveSub: boolean;
 } & NavigationTypes;
 export const CollapsibleSideBarItems: FC<Props> = memo(
-  ({name, subRoutes, isCollapse, icon, isActive, isActiveSub}) => {
+  ({name, subRoutes, isCollapse, icon, isActive}) => {
     return (
       <SidebarGroup>
         <SidebarGroupContent>
@@ -79,7 +79,7 @@ export const CollapsibleSideBarItems: FC<Props> = memo(
                           <SidebarMenuSubItem>
                             <SidebarMenuSubButton
                               asChild
-                              className={`!hover:bg-[#E3EAFB] ${isActiveSub && 'bg-[#E3EAFB]'}`}
+                              className={`!hover:bg-[#E3EAFB] `} //${isActiveSub && 'bg-[#E3EAFB]'}
                             >
                               <NavLink to={sbr.to}>
                                 <span className="font-semibold">

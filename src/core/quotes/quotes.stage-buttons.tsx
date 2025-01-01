@@ -2,12 +2,14 @@ import {Button} from '@/components/ui/button';
 import {FC, memo, useState} from 'react';
 import ConfirmationModal from '../confirmation.modal';
 import {useStageContext} from '@/context/stage.context';
+import {QuoteProcedureState} from '@/types/quotes.types';
 
 type Props = {
   isSubmit?: boolean;
+  nexStage: QuoteProcedureState;
 };
 
-const QuoteStageButton: FC<Props> = memo(({isSubmit = false}) => {
+const QuoteStageButton: FC<Props> = memo(({isSubmit = false, nexStage}) => {
   const ctx = useStageContext();
   const lastBtnText: string = isSubmit ? 'Submit' : 'Continue';
 
@@ -34,9 +36,7 @@ const QuoteStageButton: FC<Props> = memo(({isSubmit = false}) => {
       </Button>
       {isSubmit ? (
         <ConfirmationModal
-          confirmBtnHandler={
-            () => null
-          }
+          confirmBtnHandler={() => null}
           open={open}
           size="lg"
           onOpenChange={setOpen}
@@ -52,7 +52,7 @@ const QuoteStageButton: FC<Props> = memo(({isSubmit = false}) => {
         />
       ) : (
         <Button
-          onClick={() => ctx.nextHandler()}
+          onClick={() => ctx.nextHandler(nexStage)}
           variant="default"
           size="lg"
           className="!bg-primary !font-semibold"

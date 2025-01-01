@@ -13,7 +13,6 @@ import {Calendar} from '@/components/ui/calendar';
 import clsx from 'clsx';
 import {TSelectProps} from '@/types/utils.types';
 
-
 export const DefaultInput = React.memo(
   (props: React.ComponentProps<'input'>) => {
     return (

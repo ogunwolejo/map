@@ -1,11 +1,11 @@
 import {useMemo} from 'react';
 import {QuoteInformationEdit} from '@/core/quotes/quote.information';
 import {QuoteProcessCard} from '@/core/quotes/quote.process-card';
-import {QuoteTermsContract} from '@/core/quotes/quote.terms';
-import {QuoteViewTable} from '@/core/quotes/quoute.view-table';
+//import {QuoteTermsContract} from '@/core/quotes/quote.terms';
+//import {QuoteViewTable} from '@/core/quotes/quoute.view-table';
 import {FC} from 'react';
 import {ProcessList} from '@/types/quotes.types';
-import QuoteStageButton from '@/core/quotes/quotes.stage-buttons';
+//import QuoteStageButton from '@/core/quotes/quotes.stage-buttons';
 
 const QuoteReview: FC = () => {
   const stages: ProcessList[] = useMemo(
@@ -35,9 +35,9 @@ const QuoteReview: FC = () => {
     <div className="page_container space-y-4 lg:space-y-6">
       <QuoteProcessCard activeNumber={3} stages={stages} />
       <QuoteInformationEdit />
-      <QuoteViewTable />
+      {/* <QuoteViewTable />
       <QuoteTermsContract />
-      <QuoteStageButton isSubmit={true} />
+      <QuoteStageButton isSubmit={true} /> */}
     </div>
   );
 };

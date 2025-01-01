@@ -10,9 +10,7 @@ import QuoteLabel from './quote.label';
 import Status from '../status';
 import Profile from '../profile';
 import {QuoteClient} from './quote.client';
-import {
-  useQuoteDataContext,
-} from '@/context/quote-data.context';
+import {useQuoteDataContext} from '@/context/quote-data.context';
 
 const QuoteInformation: FC = () => {
   const quoteCtx = useQuoteDataContext();
