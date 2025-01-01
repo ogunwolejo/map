@@ -10,6 +10,7 @@ const Uploader: FC = () => {
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<'loading' | 'idle'>('idle');
+  console.log(error, loading, setLoading);
 
   // uploade validator
   const validateFile = async (file: File): Promise<string | null> => {

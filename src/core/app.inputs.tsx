@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Input} from '@/components/ui/input';
-import {Label} from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -14,9 +13,6 @@ import {Calendar} from '@/components/ui/calendar';
 import clsx from 'clsx';
 import {TSelectProps} from '@/types/utils.types';
 
-const InputLabel: React.FC = React.memo(() => (
-  <Label className="!font-semibold !text-sm !text-grey6"> RFQ No</Label>
-));
 
 export const DefaultInput = React.memo(
   (props: React.ComponentProps<'input'>) => {

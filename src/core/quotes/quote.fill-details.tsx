@@ -67,7 +67,7 @@ const data: TQuoteItem[] = [
 export const columns: ColumnDef<TQuoteItem>[] = [
   {
     id: 'id',
-    header: ({table}) => (
+    header: () => (
       <div className="flex justify-start items-center gap-2">
         <span>Items</span>
       </div>
@@ -149,7 +149,7 @@ export const columns: ColumnDef<TQuoteItem>[] = [
   {
     accessorKey: 'action',
     header: () => <></>,
-    cell: ({row}) => (
+    cell: () => (
       <div className="flex justify-end items-center">
         <Button size="icon" variant="link">
           <img src={Trash} className="" />

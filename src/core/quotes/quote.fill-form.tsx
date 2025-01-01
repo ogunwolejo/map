@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
-import {type SubmitHandler, useForm, type Resolver} from 'react-hook-form';
+import {useForm, type Resolver} from 'react-hook-form';
 import {
   Form,
   FormControl,

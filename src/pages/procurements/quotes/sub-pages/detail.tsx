@@ -1,5 +1,5 @@
 import {Button} from '@/components/ui/button';
-import {FC, Fragment} from 'react';
+import {FC} from 'react';
 import {X} from 'lucide-react';
 import QuoteInformation from '@/core/quotes/quote.information';
 import {QuoteViewTable} from '@/core/quotes/quoute.view-table';
